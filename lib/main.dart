@@ -1,65 +1,66 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n_extension/src/core/i18n/utils/i18n_utils.dart';
+import 'package:flutter_i18n_extension/src/core/storage/storage.dart';
+import 'package:flutter_i18n_extension/src/ui/pages/detail/detail_page.dart';
+import 'package:flutter_i18n_extension/src/ui/pages/home/home_page.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  StoredSettings _settings;
+
+  @override
+  void initState() {
+    _settings = StoredSettings();
+    _settings.init();
+    super.initState();
   }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  void dispose() {
+    _settings?.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+    return MultiProvider(
+      providers: [
+        Provider<StoredSettings>.value(value: _settings),
+      ],
+      child: StreamBuilder<StoredSettings>(
+        stream: _settings.stream,
+        builder: (context, snapshot) {
+          return MaterialApp(
+            title: 'i18n extension',
+            theme: ThemeData.dark(),
+            locale: getLocale(_settings.localeKey),
+            localizationsDelegates: [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: [
+              const Locale('en', "US"),
+              const Locale('es', "MX"),
+              const Locale('pt', "BR"),
+            ],
+            initialRoute: HomePage.route,
+            routes: {
+              HomePage.route: (context) => HomePage(),
+              DetailPage.route: (context) => DetailPage(),
+            },
+          );
+        },
       ),
     );
   }
