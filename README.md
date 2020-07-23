@@ -1,6 +1,13 @@
-# flutter_i18n_extension
+# Flutter i18n Extension 🔌⚡️
 
 A new Flutter project.
+
+> Using this Flutter Version /Channel (or higher): `Flutter 1.21.0-6.0.pre.13 • channel master •`
+
+```echo
+    flutter channel master
+    flutter upgrade
+```
 
 ## Getting Started
 
