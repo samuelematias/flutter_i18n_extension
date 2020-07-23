@@ -10,3 +10,9 @@ const Locale kLocalePT = Locale('pt', "BR");
 
 const String kDefaultLocaleStr = 'en_us';
 const Locale kDefaultLocale = Locale('en', "US");
+
+const Iterable<Locale> kSupportedLocales = [
+  kLocaleEN,
+  kLocaleES,
+  kLocalePT,
+];

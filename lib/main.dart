@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n_extension/src/core/i18n/utils/i18n_utils.dart';
+import 'package:flutter_i18n_extension/src/core/i18n/i18n.dart';
 import 'package:flutter_i18n_extension/src/core/storage/storage.dart';
 import 'package:flutter_i18n_extension/src/ui/pages/detail/detail_page.dart';
 import 'package:flutter_i18n_extension/src/ui/pages/home/home_page.dart';
@@ -49,11 +49,7 @@ class _MyAppState extends State<MyApp> {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            supportedLocales: [
-              const Locale('en', "US"),
-              const Locale('es', "MX"),
-              const Locale('pt', "BR"),
-            ],
+            supportedLocales: kSupportedLocales,
             initialRoute: HomePage.route,
             routes: {
               HomePage.route: (context) => HomePage(),
