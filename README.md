@@ -2,7 +2,7 @@
 
 A new Flutter project.
 
-> Using this Flutter Version /Channel (or higher): `Flutter 1.21.0-6.0.pre.13 • channel master •`
+> Using this (or higher) Flutter Version /Channel: `Flutter 1.21.0-6.0.pre.13 • channel master •`
 
 ```echo
     flutter channel master
