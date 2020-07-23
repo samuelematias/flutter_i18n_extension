@@ -1,3 +1,4 @@
+import 'package:flutter_i18n_extension/src/core/i18n/translations/i18n_translations.dart';
 import 'package:flutter_i18n_extension/src/core/storage/storage.dart';
 
 extension InternationalizationExtesntion on String {
@@ -6,18 +7,19 @@ extension InternationalizationExtesntion on String {
     // final String _languageCode =
     //     (lang == null || lang.isEmpty) ? getLocaleStr(getDeviceLocale.languageCode) : lang;
 
+    // If want use only single language
+    // final String _languageCode =
+    //     (lang == null || lang.isEmpty) ? kDefaultLocaleStr : lang;
+
     final String _languageCode =
         (lang == null || lang.isEmpty) ? StoredSettings.getLocaleKey() : lang;
 
     final Map<String, Map<String, String>> dic = {
-      "WELLCOME": {
-        "en_us": "Welcome",
-        "es_mx": "Bien Venido",
-        "pt_br": "Bem Vindo",
-      },
-      "NOW": {"pt_br": "Agora", "en_us": "Now", "es_mx": "Ahora"}
+      "en_us": enUS,
+      "es_mx": esMX,
+      "pt_br": ptBR,
     };
 
-    return dic[this][_languageCode];
+    return dic[_languageCode][this];
   }
 }
